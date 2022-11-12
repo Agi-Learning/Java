@@ -64,9 +64,15 @@ public class HelloSpringApp {
 				new ClassPathXmlApplicationContext("file:src/applicationContext.xml");
 		// retrieve bean from spring container
 		Coach theCoach = context.getBean("myCoach", Coach.class);
+		// But these bean actually has dependencies, actually a fortune servic, So it actually injects that fortune service on the bean
+		// we actually get the bean fully assemble remember Spring factory create all the appropriate beans and dependencies and inject those dpendencies so you can make use of them so you'll get a object so your car has already been built
 
 		// call methods on the bean
 		System.out.println(theCoach.getDailyWorkout());
+		
+		// let's call our new method for fortunes
+		System.out.println(theCoach.getDailyFortune());
+		
 		// close the context
 		context.close();
 		
