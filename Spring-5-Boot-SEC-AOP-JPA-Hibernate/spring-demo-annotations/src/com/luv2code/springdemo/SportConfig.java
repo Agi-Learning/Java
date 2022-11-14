@@ -3,6 +3,7 @@ package com.luv2code.springdemo;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 //16. Spring Configuration with java code (no xml)
 //
@@ -38,6 +39,7 @@ import org.springframework.context.annotation.Configuration;
 // actually this is java config, all of the rules direction with the config file
 @Configuration
 //@ComponentScan("Com.luv2code.springdemo")
+@PropertySource("classpath:sport.properties")
 public class SportConfig {
 	
 	// define bean for our sad fortune service
