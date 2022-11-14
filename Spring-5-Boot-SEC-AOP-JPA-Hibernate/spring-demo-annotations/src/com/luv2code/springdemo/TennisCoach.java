@@ -1,12 +1,40 @@
 package com.luv2code.springdemo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TennisCoach implements Coach {
 	
+//	13. Qualifiers for DI
+//	What happens multiple injection out there 
+//	Muliple fortuneService Implementation
+//
+//	FortuneService
+//
+//	1. HappyFortuneService
+//	2. RandomFortuneService
+//	3. DatabaseFortuneService
+//	4. RESTFortuneService
+//
+//	Which one i pick? problem - Injection of autowired dependencies failed, No qualifying bean of type
+//
+//	here its annotation called Qualifier, bean id actually bean i want to use spring to inject. it will resolve the problem of too many implementations. 
+//	I am going to use default name happyFortuneService
+//	@Qualifier('happyFortuneService')
+//
+//	Injection Types
+//
+//	* can apply @Qualilifier annotation to
+//		1. Constructor injection
+//		2. Setter injection methods
+//		3. Field injection
+//	@Qualifier("happyFortuneService")
+	
+
 	@Autowired
+	@Qualifier("randomFortuneService")
 	private FortuneService fortuneService;
 //	12. Inject dependencies by setting field values on your class directly. (even for private fields)
 //
@@ -61,4 +89,47 @@ public class TennisCoach implements Coach {
 		return fortuneService.getFortune();
 	}
 
+//	Annotations - Default Bean Names - The Special Case
+//	If the annotations value doesn't indicate a bean name, an appropriate name will be built based on the short name of the class
+//	For the case of RESTFortuneService
+//
+//	RESTFortuneService --> RESTFortuneService
+//
+//	No conversion since the first 2 charactes are upper case.
+//
+//	Behind the scenes, Spring uses the Java Beans Introspector to generate the default bean name. 
+//	@Component("foo")
+//	public class RESTFortuneService
+//
+//	Using @Qualifier with constructors
+//
+//	@Qualifer is a nice feature, but it is tricky when used with Constructors
+//	The syntax is much diff from other examples and not exactly intuitive. Consider this the "deep end of the pool" when it comes to Spring config.
+//
+//	You have to place the @Qualifier annotation inside of the constructor arguments.
+//
+//	@Qulifier with Setter Injection
+//	@Autowired
+//	public TennisCoach(@Qualifier("randomFortuneService") FortuneService theFortuneService)
+//
+//	How to inject prop file using Java annotations
+//	Ans: This solution show you how inject values from a prop file using annotations. The values will no longer be hard coded in the java code
+//	location="classpath:sport.properties"
+//
+//	Inject the props values into your Swim Coach:
+//
+//	@Value("${foo.email}")
+//	private String email;
+//
+//	@Value("${foo.team}")
+//	private String team;
+//
+//	Dependency Injection with Annotations
+//
+//	1. Define a new implementation for the FortuneService.
+//		* Your fortune service should read the fortunes from a file
+//		* The fortune service should load the fortunes intot an array
+//		* When the getFortune() method is called it would return a random fortune from the array.
+//	2. Inject your new dependecy into your Coach implementation
+//	3. Test your app to verify you are getting random fortunes based on your fortune file.
 }
