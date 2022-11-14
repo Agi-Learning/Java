@@ -1,12 +1,17 @@
 package com.luv2code.springdemo;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
+//import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+//@Component
+//@Scope("prototype")
+
 @Component
-@Scope("prototype")
 public class TennisCoach implements Coach {
 	
 //	13. Qualifiers for DI
@@ -54,6 +59,37 @@ public class TennisCoach implements Coach {
 	public TennisCoach() {
 		System.out.println(">> TennisCoach: inside default constructor!");
 	}
+//	15. Bean Lifecycle Methods - Annotations
+//
+//	1. Define your methods for init and destroy
+//	2. Add annotations: @PostConstruct and @PreDestroy
+//
+//	For initialization give it any method name, and you simply annotate it with @PostConstruct. So as the annotation says, this code will execute after has been constructed, and after injection of dependencies So this is where you can place your own custom initialization work. 
+//
+//	Destroy: method config
+//	@PreDestroy
+//	So before your bean destroy you can annotate a method with @PreDestroy, and you can write own custom cleanup code to exe. 
+//
+//	If you are using Java 9 or higher, then you will encounter an error when using @PostConstruct and @PreDestroy in your code.
+
+	// define my init method
+	
+	@PostConstruct
+	public void doMyStartupStuff() {
+		System.out.println(">> TennisCoach: inside of doMyStartupStuff");
+	}
+	
+	
+	// define my destroy method
+	
+	@PreDestroy
+	public void doMyCleanupStuff() {
+		System.out.println(">> TennisCoach: inside of doMyCleanStuff()");
+	}
+	
+	
+	
+	
 	/*
 	// define a setter method
 	@Autowired
