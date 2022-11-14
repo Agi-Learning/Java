@@ -1,7 +1,7 @@
 package com.luv2code.springdemo;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-//Spring Configuration with Annotations
+//1. Spring Configuration with Annotations
 //
 //What are Java Annotations?
 //* Special labels/markers added to Java classes
@@ -55,13 +55,27 @@ public class AnnotationDemoApp {
 		ClassPathXmlApplicationContext context =
 				new ClassPathXmlApplicationContext("file:src/applicationContext.xml");
 		
-		// get the bean from spring container
-		Coach theCoach = context.getBean("thatSillyCoach", Coach.class);
+		// 2. get the bean from spring container
+//		Coach theCoach = context.getBean("thatSillyCoach", Coach.class);
+//		@Components - Default Bean ID
+//		Spring also supports Default Bean ISs
+//		* Default bean id: the class name, make first letter lower-case
+//		TenniseCoach ----------> tennisCoach
+//		@Component
+		Coach theCoach = context.getBean("tennisCoach", Coach.class);
 		
 		// call a method on the bean
 		System.out.println(theCoach.getDailyWorkout());
 		
 		// close the context
+		
+		// Inversion of Control with Annotaions 
+		// 1. Define a new Coach implementation using Annotations
+		// 2. Ref the new coach implementation in your main app.
+		// 3. Test your app to verify you are getting info from your new coach implementation
+		
+		// Call method to get the daily fortune
+		System.out.println(theCoach.getDailyFortune());
 		context.close();
 	}
 
