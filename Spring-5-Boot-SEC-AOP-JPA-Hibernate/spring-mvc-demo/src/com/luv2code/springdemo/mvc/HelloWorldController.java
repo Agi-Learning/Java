@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 //21. Reading Form Data with Spring MVC
 //High Level View
 //We're going to prompt the user for their name, they'll hit Submit Query, It'll go through our Spring MVC application, and then we'll show a confirmation page, 
@@ -132,6 +133,47 @@ public class HelloWorldController {
 
 		// create the message
 		String result = "Yo!" + theName;
+
+		// add message to the model
+		model.addAttribute("message", result);
+
+		return "helloworld";
+	}
+	
+	
+//	23. Reading HTML Form Data with @RequestParam Annotation
+//
+//	Code Example
+//	* We want to create a new method to process form data
+//	* Read the form data: student's name
+//	* Convert the name to upper case
+//	* Add the uppercase version to the model
+//
+//	Instead of using HttpServletRequest
+//	Bind varibale using @RequestParam Annotation
+//
+//	@RequestMapping("/processFormVersionTwo")
+//	public String letsShoutDude(
+//		@RequestParam("studentName") String theName,
+//		Model model) {
+//
+//		// The special annotation called @RequestParam, this will allow you to read form data and automatically bind it to a parameter coming into your method. 
+//
+//		// now we can use the variable: theName
+//	}
+//	// Behing the Scenes:
+//		* Spring will read param from request: studentName
+//		* Bind it to the variable: theName
+//	// @RequestParam for reading form data for you. 
+
+	@RequestMapping("/processFormVersionThree")
+	public String processFormVersionThree(@RequestParam("studentName") String theName, Model model){
+
+		// convert the data to data to all caps
+		theName = theName.toUpperCase();
+
+		// create the message
+		String result = "Hey My Friend from v3!" + theName;
 
 		// add message to the model
 		model.addAttribute("message", result);
