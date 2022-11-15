@@ -1,5 +1,7 @@
 package com.luv2code.springdemo.mvc;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 //26. Spring MVC Form Validation Overview
@@ -184,6 +186,39 @@ public class Customer {
 	@Size(min=1, message="is required")
 	private String lastName;
 	
+//	27. Spring MVC Validation a Number Range
+//
+//	* Add a new input field on our form for: Free Passes
+//	* User can only enter a range: 0 to 10
+//
+//	Development Process
+//	1. Add validation rule to Customer class
+//	2. Display error message on HTML form
+//	3. Perfom validation in the Controller class
+//	4. Update confirmation page
+//
+//	1. 
+//
+//	public class Customer {
+//		@Min(value=0, message="must be greater than or equal to zero")
+//		@Max(value=10, message="must be less than or equal to 10")
+//		private int freePasses;
+//
+//		//getter/setter methods
+//	}
+//
+//	So basically, we have new field have the customer class are called freePasses, so I'll define it as private int freePasses, actually make use of two new annotations to set up a validation rules I'll make use of an @Min and an @Max. 
+//
+//	Development Process
+//	1. Add validation rule to Customer class
+//	2. Display error messages on HTML form
+//	3. Perform validation in the Controller class
+//	4. Update confirmation page
+
+	@Min(value=0, message="must be greater than or equal to zero")
+	@Max(value=10, message="must be less than or equal to 10")
+	private int freePasses;
+	
 	
 	public String getFirstName() {
 		return firstName;
@@ -197,6 +232,10 @@ public class Customer {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-	
+	public int getFreePasses() {
+		return freePasses;
+	}
+	public void setFreePasses(int freePasses) {
+		this.freePasses = freePasses;
+	}
 }
