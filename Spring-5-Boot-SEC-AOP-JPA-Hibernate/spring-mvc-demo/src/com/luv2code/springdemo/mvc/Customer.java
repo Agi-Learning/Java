@@ -3,6 +3,7 @@ package com.luv2code.springdemo.mvc;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 //26. Spring MVC Form Validation Overview
 //The Need for Validation
@@ -214,11 +215,51 @@ public class Customer {
 //	2. Display error messages on HTML form
 //	3. Perform validation in the Controller class
 //	4. Update confirmation page
-
+	
+	@NotNull(message="is required")
 	@Min(value=0, message="must be greater than or equal to zero")
 	@Max(value=10, message="must be less than or equal to 10")
-	private int freePasses;
+//	private int freePasses;
+	// Refaction the item change to integer
+	// Why will this work? Because if our field is blank or has spaces, then they'll actually trim it to null 
+	// Using that string trimmer editor that we've added before. and this will handle appropriate issue
+	// Again this is integer wrapper class in java.
 	
+//	Own Custom Error Messages
+//	Development Process
+//	1. Create custom error message
+//		src/resource/message.properties
+//
+//	2. Load custom messages resource in Spring config file
+//		WebContent /WEB-INF/spring-mvc-demo-servlet.xml
+
+	private Integer freePasses;
+	
+//	28. Regular Expressions
+//
+//	* A sequence of characters that define a search pattern
+//		* This pattern is used to find or match strings
+//	* Regular Expressions is like its own Language (Advanced topic)
+//		* I will assume your already know about regular exps
+//
+//	* If not then plenty of free tutor
+//
+//	Valid a Postal Code
+//	* Add a new input field on our form for: Postal Code
+//	* User can only enter 5 chars / digits
+//	* Apply Regular Expression
+//
+//	Development Process
+//	1. Add validation rule to Customer class
+//	2. Display error messages on HTML form
+//	3. Update confirmation page
+//
+//	1. 
+//	@Pattern(regexp="^[a-zA-Z0-9{5}]", message="only 5 chars/digits")
+//	private String postalCode;
+
+	@Pattern(regexp="^[a-zA-Z0-9]{5}", message="only 5 chars/digits")
+	private String postalCode;
 	
 	public String getFirstName() {
 		return firstName;
@@ -232,10 +273,17 @@ public class Customer {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public int getFreePasses() {
+	public Integer getFreePasses() {
 		return freePasses;
 	}
-	public void setFreePasses(int freePasses) {
+	public void setFreePasses(Integer freePasses) {
 		this.freePasses = freePasses;
 	}
+	public String getPostalCode() {
+		return postalCode;
+	}
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+	
 }
