@@ -1,5 +1,8 @@
 package com.luv2code.hibernate.demo;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -69,7 +72,13 @@ public class CreateStudentDemo {
 		try {
 			// create a student object
 			System.out.println("Creating new student object...");
-			Student tempStudent = new Student("paul", "Wall", "paul@luv2code.com");
+			
+			String theDateOfBirthStr = "31/12/1998";
+			
+			Date theDateOfBirth = DateUtils.parseDate(theDateOfBirthStr);
+			
+			Student tempStudent = new Student("Paul", "Doe", "paul@luv.com");
+//					, theDateOfBirth);
 
 			// start transaction
 			session.beginTransaction();
@@ -82,6 +91,9 @@ public class CreateStudentDemo {
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			factory.close();
 		}
