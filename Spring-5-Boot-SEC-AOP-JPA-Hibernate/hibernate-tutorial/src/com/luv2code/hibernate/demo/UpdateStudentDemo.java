@@ -6,28 +6,32 @@ import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.demo.entity.Student;
 
-
-//34. Updating Objects with Hibernate
+//35. Deleting Objects with Hibernate - Overview
 //
-//Update a Student
+//Delete a Sudent
+//
 //int studentId = 1;
+//
 //Student myStudent = session.get(Student.class, studentId);
 //
-//// update first name to "Scooby"
-//myStudent.setFirstName("Scooby");
+//// delete the student
+//session.delete(myStudent);
 //
 //// commit the transaction
 //session.getTransaction().commit();
-//We already have transaction created and we've already started a transaction, Then i wanna do is get a student using the primary key, So using info from the previous videos here, I'll say session.get student.class And I set the studentId to 1, So that'll give me a student object So I've retrieved a student object from the DB. 
 //
-//this student object that I just retrieved, So what i can do is I can actually use that student and simply set a property, So here I can say my student.set first name to Scooby, so point only in memory, but then once we commit the transaction, then that'll actually apply, to the information in the DB. or it'll actually update the DB.
+//Hibernate actually delete the student or to delete the object, we make use of session.delete and this'll actually delete the student, so session.delete, and you give the object reference and then you actually perform a commit on the transaction to make it actually apply to the database. But that's it, so the key here is retrieve the object and then you do a session.delete 
 //
-//So one thing that's important here to notice is that we simply retrieve the object, we set a value and then we commit the transaction, There's no hard requirement for us to call session.update because this student object is a persistent object that we retrieved from the DB. We can simply call the appropriate setters and then finally do a commit and that'll actually update the DB, Which is something that's a little tricky It's not what you're commonly used to seeing but once you understand it, it's actually really cool. So there's no need to explicitly call, save or update. You simply commit the transaction. 
-//
-//Update email for all students
+//Another way of deleting 
 //session
-//	.createQuery("update Student set email='foo@gmail.com'")
+//	.createQuery("delete from Student where id=2")
 //	.executeUpdate();
+//
+//you had to retrieve the object first to delete it, Here we don't really wanna retrieve it We simply wanna delete it kinda on the fly, So you can do that by saying session.createQuery delete from Student where id= and you enter whatever the ID value is, in this case 2. So that'll actually delete the object from the database So you say createQuery delete from Student where id= .executeUpdate, its a generic name, So it basically means that you're updating the DB.
+//
+//That update could be an update statement or a delete. It doesn't really care, so update in a very generic sense. So here that's how we delete Now with your where clause, you could set any values. You could say delete from student where not registered equals yes or whatever values you have. You can get as fancy as you want for your where clause as far as performing a delete. So this could apply to a single student or based on your where clause, it could apply to multiple students. All right, so that's the other way of performing a delete. 
+//
+//Can see actually perform deletes on the DB using Hibernate. 
 
 
 public class UpdateStudentDemo {
@@ -50,22 +54,15 @@ public class UpdateStudentDemo {
 			System.out.println("\nGetting student with id: "+studentId);
 			
 			Student myStudent = session.get(Student.class, studentId);
-			System.out.println("Updating student...");
-			myStudent.setFirstName("Scooby");
 			
-			// commit the transaction
-			session.getTransaction().commit();
+			// delete the student
+			// System.out.println("\n Delete student: "+myStudent);
+			// session.delete(myStudent);
 			
+			// delete student id=2
+			System.out.println("Deleting student id=2");
+			session.createQuery("delete from Student where id=2").executeUpdate();
 			
-			// NEW CODE
-			session = factory.getCurrentSession();
-			session.beginTransaction();
-			
-			// update email for all students
-			System.out.println("Update email for all students");
-			
-			session.createQuery("update Student set email='foo@gamil.com'")
-					.executeUpdate();
 			
 			// commit the transaction
 			session.getTransaction().commit();
@@ -78,3 +75,26 @@ public class UpdateStudentDemo {
 	}
 
 }
+
+//Hibernate Development
+//
+//Overview
+//Create an app using Hibernate to read/write data to database table. Here is the database table design:
+//
+//Table: Employee
+//Columns
+//-id: int
+//-first_name: varchar
+//-last_name: varchar
+//-company: varchar
+//
+//Steps you must complete
+//
+//1. create the database table.
+//2. Set up the Hibernate config file.
+//3. Create a Java class(entity) with Hibernate annotations
+//4. Develop a main application.
+//5. Develop code to save objects
+//6. Develop code to retrieve an object by primary key.
+//7. Develop code to query objects to find employees for given company.
+//8. Develop code to delete an object by primary key.
