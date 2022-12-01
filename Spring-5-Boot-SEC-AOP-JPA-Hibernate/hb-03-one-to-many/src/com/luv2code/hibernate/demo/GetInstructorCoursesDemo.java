@@ -24,23 +24,23 @@ public class GetInstructorCoursesDemo {
 		Session session = factory.getCurrentSession();
 		
 		try {			
-			
 			// start a transaction
 			session.beginTransaction();
 			
-			// get a course
+			// get the instructor from db
 			int theId = 1;
-			Course tempCourse = session.get(Course.class, theId);
+			Instructor tempInstructor = session.get(Instructor.class, theId);		
 			
-			// delete course
-			System.out.println("Deleting course: "+tempCourse);
+			System.out.println("Instructor: "+tempInstructor);
 			
-			session.delete(tempCourse);
+			// get course for the instructor
+			System.out.println("Courses: "+tempInstructor.getCourses());
 			
 			// commit transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
+			
 		}
 		finally {
 			
