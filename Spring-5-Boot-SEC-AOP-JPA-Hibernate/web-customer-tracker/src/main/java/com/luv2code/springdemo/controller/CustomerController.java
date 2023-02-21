@@ -45,6 +45,15 @@ public class CustomerController {
 		
 		return "customer-form";
 	}
+	
+//	43. Add Customer
+//
+//	1. Update list-customer.js
+//		1. New "Add Customer" button
+//	2. Create HTML form for new Customer
+//	3. Process Form Data
+//		1. Controller -> Service -> DAO
+	
 	@PostMapping("/saveCustomer")
 	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
 		
