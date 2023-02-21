@@ -113,6 +113,26 @@ public class CustomerController {
 		// send over to our form		
 		return "customer-form";
 	}
+	
+//	45. Deleting the customer 
+//
+//	Each row has a Delete link
+//		- current customer id embedded in link
+//	When clicked
+//		- prompt user
+//		- will delete the customer from database
+//
+//	1. Add "Delete" link on JSP
+//	2. Add code for "Delete"
+//		1. Controller -> Service -> DAO
+	@GetMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") int theId) {
+		
+		// save the customer using our service
+		customerService.deleteCustomer(theId);
+		
+		return "redirect:/customer/list";
+	}
 }
 
 
