@@ -21,7 +21,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	@Transactional
+	// move this functinality of the service layers, will make the apropriate calls to the DAOs then the service layer clean up the transaction
 	public List<Customer> getCustomers() {
 		// TODO Auto-generated method stub
 		
