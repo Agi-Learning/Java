@@ -1,8 +1,10 @@
 package com.luv2code.aopdemo;
 
+import org.aspectj.lang.annotation.Before;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.luv2code.aopdemo.dao.AccountDAO;
+import com.luv2code.aopdemo.dao.MembershipDAO;
 
 //## Aspect-Oriented Programming(AOP) Overview
 //Check Tab ->
@@ -317,6 +319,105 @@ import com.luv2code.aopdemo.dao.AccountDAO;
 //* Don't perform any expensive / slow operations
 //* Get in and out as QUICKLY as possible
 
+//## AOP Pointcut expression
+//
+//### AOP Terminology
+//
+//* Pointcut: A predicate expression for where advice should be applied
+//
+//### Pointcut Expression Language
+//
+//* Spring AOP uses AspectJ's pointcut expression language
+//* We will start with execution pointcuts
+//	* Applies to execution of methods.
+//
+//### Match on Method Name 
+//#### Pointcut Expression Language
+//
+// * Will use this basically define the predicate this actually Match on given method and there is number of different pattern we can apply. so let's go an break it down.
+// 
+// ```Java
+// 	execution(modifiers-pattern? retun-type-pattern declaring-type-pattern? method-name-pattern(param-pattern) throws-pattern?)
+// ```
+// * find the predicate to actually match on given method, there is an number of diff patterns we can apply 
+// * first start with the modifier patterns then return type pattern, next we have the clearing type pattern basically what's the class name of the type that gonn use method the we have the actaul method name patterns you can give the actual name itself, and paramethers types to match and then fianlly throws get pattern. 
+//
+// * The pattern is optional if it has "?"
+// * Patterns can also use wildcards 
+// 	* For the patterns, can use wildcard: * (match on everything)
+//
+// ##### Pointcut Expression Example
+//
+// ###### Match on method names
+// * Match only addAccount() method in AccountDAO class 
+//
+// @Before("execution(public void com.luv2code.aopdemo.dao.AccountDAO.addAccount())") -> It's all from matching execution calls for a given method (Modifier, Return type, Declaring type, Method)
+// 
+// * Match any addAccount() method in any class
+//
+// @Before("execution(public void addAccount()"), -> any call to add account method to any class 
+//
+// ###### Match on method names (using wildcards)
+//
+// * Match methods starting with add in any class
+//
+// @Before("execution(public void add*())") -> The Modifier is public and return type is void and the method is add* then you need to calls the method advice 
+//
+// * Match methods starting with processCreditCard in any class
+//
+//@Before("execution(public VerificationResult processCreditCard*())") -> The Modifier publics the return type of VerificationResult and then actual method is processCreditCard* So here any method returns of verifictaionResult public That has processCreditCard then will apply our advice.
+//
+// * Use wildcards on modifier and return type
+//
+// @Before("execute("* * processCreditCard*()") -> On matching on wildcard expression
+//
+//  * Modifier is optional ... so you don't have to list it
+//
+//  @Before("execution(* processCreditCard*())") 
+//
+//  ###### Match method named: "addAccount" in any class 
+//
+//  * Whenever calling the method on account it will execute before method 
+//
+//  ###### Match only: AccountDAO.addAccount 
+//
+//  * Only account DAO only specific matches one name class 
+//
+//  ###### Match method starting with "add" in any class
+//
+//  @Before("execution(public void add*())")
+//
+//  ###### Match method with based on Return Type
+//
+// ###### Parameter Pattern Wildcards
+//
+// * For param-pattern
+// 	* () - matches a method with no arguments
+// 	* (*) - matches a method with one argument of any type 
+// 	* (..) - matches a method with 0 or more arguments of any type
+//
+// ###### Match on method parameters
+// 	* Match addAccount methods with no arguments
+//
+// @Before("execution(* addAccount())") -> 
+//
+// ###### Match on method parameters
+// 	* Match addAccount methods that have Account param
+//
+// @Before("execution(* addAccount(com.luv2code.aopdemo.Account))")
+// 	* Full Qulified class name of the account class So this is only match if you call in addAccount method and you pass an account object 
+//
+// ###### Match on method parameters (using wildcards)
+//
+// 	* Match addAccount methods with any number of arguments
+//
+// @Before("execution((* addAccount(..))") 
+//
+// ###### Match on methods in a package 
+// 	* Match any method in our DAO package: com.luv2code.aopdemo.dao
+//
+// @Before("execution(* com.luv2code.aopdemo.dao.*.*(..))") 
+
 public class MainDemoApp {
 
 	public static void main(String[] args) {
@@ -327,14 +428,33 @@ public class MainDemoApp {
 		// get the bean from spring container
 		AccountDAO theDAO = context.getBean("accountDAO", AccountDAO.class);
 
+		// get membership bean from spring container
+		MembershipDAO theMembershipDAO = context.getBean("membershipDAO", MembershipDAO.class);
+				
 		// call the bussiness method
-		theDAO.addAccount();
+//		theDAO.addAccount();
 
-		// do it againg!
-		System.out.println("\n let's call it again!");
+		Account myAccount = new Account();
 		
-		// call the business method again
-		theDAO.addAccount();
+//		@Before("execution(* add*(com.luv2code.aopdemo.Account))")
+		// this only match addAccount parameter type eaither bottom will not match because
+		theDAO.addAccount(myAccount, true);
+		// Note this I haven't modified expression it's only one parameter.
+		// Let's call our new methods
+		theDAO.doWork();
+		
+		
+		// call the membership business method 
+		// Did NOT match on MembershipDAO because of return type: boolean
+		theMembershipDAO.addSillyMember(); // It will not match on
+		theMembershipDAO.goToSleep();
+		// Match on both of these in match package 
+		
+//		// do it againg!
+//		System.out.println("\n let's call it again!");
+//		
+//		// call the business method again
+//		theDAO.addAccount();
 		
 		// close the context
 		context.close();
