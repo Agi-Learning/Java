@@ -62,9 +62,3 @@ out
 #.project
 
 .idea
-.DS_Store
-.classpath
-.project
-*.class
-pom.properties
-Servers/
