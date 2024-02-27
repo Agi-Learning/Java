@@ -6,6 +6,6 @@
 	
 	<hr/>
 	<hr/>
-	<a href="${pageContext.request.contextPath}/api/students">Students</a>
+	<a href="${pageContext.request.contextPath}/api/students">All Students</a>
 </body>
 </html> 

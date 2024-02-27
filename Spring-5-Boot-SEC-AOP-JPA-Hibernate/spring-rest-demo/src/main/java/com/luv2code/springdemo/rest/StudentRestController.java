@@ -3,7 +3,10 @@ package com.luv2code.springdemo.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -90,12 +93,86 @@ import com.luv2code.springdemo.entity.Student;
 @RequestMapping("/api")
 public class StudentRestController{
 	
-	@GetMapping("/students")
-	public List<Student> getStudents(){
-		List<Student> theStudents = new ArrayList<>();
+	private List<Student> theStudents;
+	
+	// define @PostConstruct to load the student data ... only once!
+	
+	@PostConstruct
+	public void loadData() {
+		// Only load students data at once @ PostConstruct annotation
+		theStudents = new ArrayList<>();
 		theStudents.add(new Student("Poornima", "Patel"));
 		theStudents.add(new Student("Mario", "Rossi"));
 		theStudents.add(new Student("Mary", "Smith"));
+	}
+	
+	
+	@GetMapping("/students")
+	public List<Student> getStudents(){
+		
 		return theStudents;
 	}
+	
+//	# Spring REST - Using @PathVariable for REST Endpoints
+//
+//	## Overview
+//
+//	* Retrieve a single student by id 
+//
+//	* GET  /api/students/{studentId}   ->   Retrieve a single student (So we'll make a GET request to /api/students/studentID and this will retrieve a single student. Now, the studentId in curly braces here, this is known as a path variable, such that when we actually access it via our REST client, So we could say /api/student/0 to give us the student with id 0,1,2,3 and so on. So basically, a way of parameterizing your path or the endpoint to actually accept data. )
+//
+//	### Development Process
+//	1. Add request mapping to Spring REST Service
+//		* Bind path variable to method parameter using @PathVariable 
+//
+//	#### Step 1: Add Request Mapping
+//
+//	-> File: StudentRestController.java
+//	```java
+//		@RestController
+//		@RequestMapping("/api")
+//		public class StudentRestController {
+//			// define endpoint for "/students/{studentId}" - return student at index
+//
+//			@GetMapping("/students/{studentId}")
+//			public Student getStudent(@PathVariable int studentId){
+//				// This is actually Bind the path variable (by default, must match )
+//				List<Student> theStudents = new ArrayList<>();
+//
+//				// populate theStudents
+//				...
+//
+//				return theStudents.get(studentId);
+//			}
+//		}
+//	```
+//
+//
+//	## Refactoring Code
+//	## Code @PathVariable
+	
+	
+	// define endpoint for "/students/{studentId}" - return student at index
+	@GetMapping("/students/{studentId}")
+	public Student getStudent(@PathVariable int studentId){
+		
+		// Just index into the list ... keep it simple for now 
+		
+		return theStudents.get(studentId);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
