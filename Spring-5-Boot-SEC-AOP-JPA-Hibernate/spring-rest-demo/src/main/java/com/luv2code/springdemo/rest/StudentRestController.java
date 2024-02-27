@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -158,8 +161,51 @@ public class StudentRestController{
 		
 		// Just index into the list ... keep it simple for now 
 		
+		// return theStudents.get(studentId);
+		
+		// check the studentId against list size
+
+		if(( studentId >= theStudents.size()) || (studentId < 0)){
+			throw new StudentNotFoundException("Student id not found - "+ studentId);
+		}
+
 		return theStudents.get(studentId);
 	}
+	// Add an exception handler using @ExceptionHandler
+	
+//	@ExceptionHandler
+//	public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc){
+//		// Custom POJO 
+//		// Create a StudentErrorResponse
+//		StudentErrorResponse error = new StudentErrorResponse();
+//		
+//		error.setStatus(HttpStatus.NOT_FOUND.value());
+//		error.setMessage(exc.getMessage());
+//		error.setTimeStamp(System.currentTimeMillis());
+//		
+//		// return ResponseEntity
+//		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+//	}
+//	
+//	// add another exception handler ... to catch any exception (Catch all)
+//	// there's no major changes there, so again, We're just adding another exception handler to 
+//	// do the catch-all portion here. 
+//	@ExceptionHandler
+//	public ResponseEntity<StudentErrorResponse> handleException(Exception exc){
+//		// Create a StudentErrorResponse
+//		StudentErrorResponse error = new StudentErrorResponse();
+//		// In this case bad request and we want to reflect that
+//		error.setStatus(HttpStatus.BAD_REQUEST.value());
+//		// Now this Message portion here, it give the details as far as what happened. What we like read as it's
+//		// or you can change the error message to be a bit more friendly to the user. In your java code, you simply
+//		// update this one line, and you can give whatever plain text area that you want, instead of giving the full
+//		// exception get message or whatever, How you want control and customize that portion. 
+//		error.setMessage(exc.getMessage());
+//		error.setTimeStamp(System.currentTimeMillis());
+//		
+//		// return ResponseEntity
+//		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+//	}
 }
 
 
