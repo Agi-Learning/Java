@@ -1,0 +1,22 @@
+2024-03-12 23:21:29 [restartedMain] INFO  c.j.s.l.a.SpringBootLoggingApplication -
+        Starting SpringBootLoggingApplication on Agilan with PID 66592 (D:\Learning\Java\Youtube\JavaTechie\SpringBootLoggingwithSL4JandLogback\spring-boot-logging\target\classes started by Agilan in d:\Learning\Java\Youtube\JavaTechie)
+2024-03-12 23:21:29 [restartedMain] DEBUG c.j.s.l.a.SpringBootLoggingApplication -
+        Running with Spring Boot v1.5.12.RELEASE, Spring v4.3.16.RELEASE
+2024-03-12 23:21:29 [restartedMain] INFO  c.j.s.l.a.SpringBootLoggingApplication -
+        No active profile set, falling back to default profiles: default
+2024-03-12 23:21:29 [restartedMain] INFO  c.j.s.l.a.SpringBootLoggingApplication -
+        Started SpringBootLoggingApplication in 0.23 seconds (JVM running for 8798.039)
+2024-03-12 23:22:02 [http-nio-9090-exec-1] DEBUG c.j.s.l.a.SpringBootLoggingApplication -
+        Request test
+2024-03-12 23:22:13 [http-nio-9090-exec-2] DEBUG c.j.s.l.a.SpringBootLoggingApplication -
+        Request Agilan
+2024-03-12 23:22:13 [http-nio-9090-exec-2] DEBUG c.j.s.l.a.SpringBootLoggingApplication -
+        Response Hi Agilan Welcome to Java Techie
+2024-03-12 23:22:22 [http-nio-9090-exec-3] DEBUG c.j.s.l.a.SpringBootLoggingApplication -
+        Request Agilan
+2024-03-12 23:22:22 [http-nio-9090-exec-3] DEBUG c.j.s.l.a.SpringBootLoggingApplication -
+        Response Hi Agilan Welcome to Java Techie
+2024-03-12 23:23:48 [http-nio-9090-exec-5] DEBUG c.j.s.l.a.SpringBootLoggingApplication -
+        Request Santhosh
+2024-03-12 23:23:48 [http-nio-9090-exec-5] DEBUG c.j.s.l.a.SpringBootLoggingApplication -
+        Response Hi Santhosh Welcome to Java Techie
