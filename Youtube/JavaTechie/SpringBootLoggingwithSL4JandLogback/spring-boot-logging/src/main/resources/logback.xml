@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <!-- You can check This is the property I mentioned with this folder. This is the root folder with
+  rocks. There will get the over locks way. And this is the console appendra. And this layout is
+  provided by the clip. You can check the important here. And this is the pattern. The way I want to
+  print my log statement and in sub can be introduced.  -->
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+  <property
+    name="DEV_HOME" value="SpringBootLoggingwithSL4JandLogback/spring-boot-logging/logs" />
+
+  <appender
+    name="STDOUT"
+    class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>
+        %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+        %msg%n
+      </Pattern>
+    </layout>
+  </appender>
+
+  <!-- In second, there is one more attender that is the child abender in this format. It will print
+  on console. And in this pattern, it will print on the thighs itself. What I'm specifying the time
+  based role policy like the size of my lock file and the location with the dead format. Ok -->
+  <appender
+    name="FILE-AUDIT"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${DEV_HOME}/debug.log</file>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <Pattern>
+        %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+        %msg%n
+      </Pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>
+        ${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log
+      </fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>10MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+
+  </appender>
+  <!-- and this is for, again, one more file happened, or for errors. If there is error or exception
+  in my application, error dot log 1 log file will be generated. This is the pattern. And for that
+  also, I mention the policy. like the  -->
+  <appender
+    name="FILE-ERROR"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${DEV_HOME}/error.log</file>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <Pattern>
+        %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+        %msg%n
+      </Pattern>
+    </encoder>
+    <!-- Name and finally In my application, I refer both the append mode. So change this package
+    name. Over huge package Here Ok, now lets Ok, now let us run For application.  -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>
+        ${DEV_HOME}/archived/error.%d{yyyy-MM-dd}.%i.log
+      </fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>10MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+
+  </appender>
+  Ok <!-- Send logs to both console and file audit -->
+  <logger name="com.javatechie.spring.logging.api" level="debug"
+    additivity="false">
+    <appender-ref ref="FILE-AUDIT" />
+    <appender-ref ref="STDOUT" />
+  </logger>
+
+  <root level="error">
+    <appender-ref ref="FILE-ERROR" />
+  </root>
+
+</configuration>
