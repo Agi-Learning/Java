@@ -1,0 +1,3 @@
+# Spring Security using   Spring Data JPA + MySQL + Spring Boot
+
+* How to implement spring security in microservices using database connection and how to authenticate the credential. Apart from this, we will cover real few more things, like how to unscript the password using password encoder and how to implement url and role based security. The 2nd one we already covered in our previous video. But in that video, in that session, we just added some dummy **** video, and we test that. So here we will get the credential from database, and we will specify the role in database, and we will validate that. So let's get started the development.
