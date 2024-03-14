@@ -1,0 +1,19 @@
+# Just kima specified the Kori OK now specify the like the exact query, which we are going to work from Dial Kuri. Here we need to mention like the in which request. what are the response you are expecting? So let me write two method here. Get all person Okay, forget all person I want to be face the list of person. Okay, one more I want to write. Find for some ok And I want to feel the I want to give the input as my email. Type of that email is string 10% based on immense, it will return me only one object. So means I'm the person. Ok and defend the field, which is available in my type class. Type class is here also. Okay, right type or some. What are the fields you have available you need to write ID string then we have name that is also string. Mobile. Similarly, email Similarly, an address. Did they rescue? And this is the array of string. So we are done with our typescript. Now lets load these graphcules file in my controller
+schema{
+query: Query
+}
+
+type Query{
+
+getAllPerson : [Person]
+findPerson(email: String) : Person
+}
+
+type Person{
+
+id: String
+name: String
+mobile: String
+email: String
+address: [String]
+}
