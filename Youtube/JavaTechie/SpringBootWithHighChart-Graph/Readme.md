@@ -1,0 +1,3 @@
+# Graph - Spring Boot With High-Chart
+
+* High-Chart UI component through which we can generate the dynamic graph. We can see the screen. There is many way we can create the graph, baseline, just loaded data with greater labels. Even you can generate the bar graph and pie chart, plain graph All the representation of this image, we can generate using the hijacked And some activity graph like this, we can generate So let's do a small position that how we can generate a graph using our spring and integration. As a UI page, I am using HTML and using the thigh leaf So here you'll get to know about how we can integrate our spring application using time. So let's create one spring application.
