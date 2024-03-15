@@ -1,0 +1,9 @@
+server:
+  ssl:
+    key-alias: spring-https
+    key-store: Classpath:javatechie.jks
+    key-store-type: JKS
+    key-password: password
+# keytool -genkey -alias spring-https -storetype JKS -keyalg RSA -keysize 2048 -validity 365 -keystore javatechie.jks
+
+# General using key tools we are generating the public key. Here our SSL key alias is our HTPS example. But in our code We took the earlier search spring at three TPS soon. Its changed it And we are using a sport type Jackie seizure certificate file and key algorithm we are using here. Rsa and key size we are specifying, 2048 and validity we are mentioning here. 365 means one year. And our key story, jabati key. So it is changing. Drop a ticket of jack case. Ok, now let's generate the certificate. It's asking for the password. You need to provide the same password which we mentioned in your configuration file. Again, reenter your password for confirmation
