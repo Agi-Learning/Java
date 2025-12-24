@@ -24,10 +24,7 @@ public class BookController {
 
   @GetMapping("/getBooks")
   public ResponseEntity<Object> getAllBooks() {
-    ServiceResponse<List<Book>> response = new ServiceResponse<>(
-      "success",
-      bookStore
-    );
+    ServiceResponse<Book> response = new ServiceResponse<Book>("success", bookStore);
     return new ResponseEntity<Object>(response, HttpStatus.OK);
   }
 }
